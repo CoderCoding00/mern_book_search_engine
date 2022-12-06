@@ -1,3 +1,6 @@
+// INSTRUCTIONS FROM README
+// * `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
+
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
