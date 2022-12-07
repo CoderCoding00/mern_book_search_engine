@@ -1,3 +1,7 @@
+// INSTRUCTION FROM THE README
+// * `SignupForm.js`: Replace the `addUser()` functionality 
+// imported from the `API` file with the `ADD_USER` mutation functionality.
+
 // ADD useEffect FOR ERROR HANDLING
 import React, { useState, useEffect } from 'react';
 // IMPORT useMutation HOOK

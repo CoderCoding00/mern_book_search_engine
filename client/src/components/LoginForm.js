@@ -1,3 +1,7 @@
+// INSTRUCTIONS FROM THE README
+// * `LoginForm.js`: Replace the `loginUser()` functionality imported from the `API` file 
+// with the `LOGIN_USER` mutation functionality.
+
 // see SignupForm.js for comments
 // IMPORT useEFFECT HOOK
 import React, { useState, useEffect } from 'react';

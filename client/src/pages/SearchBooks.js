@@ -1,9 +1,20 @@
+// INSTRUCTIONS FROM README
+// * Use the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function 
+// instead of the `saveBook()` function imported from the `API` file.
+// * Make sure you keep the logic for saving the book's ID to state in the `try...catch` block! 
+
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-
 import Auth from '../utils/auth';
+// IS THE GIVEN IMPORT BELOW NEEDED?
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+
+// IMPORT THE useMutation HOOK
+import { useMutation } from '@apollo/client';
+// IMPORT THE SAVE_BOOK QUERY
+import { SAVE_BOOK } from '../utils/mutations';
+
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -13,6 +24,9 @@ const SearchBooks = () => {
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+
+  // ADD THE useMutation HOOK
+  const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
@@ -64,12 +78,17 @@ const SearchBooks = () => {
       return false;
     }
 
-    try {
-      const response = await saveBook(bookToSave, token);
+    // REFACTOR TRY/CATCH
+    // try {
+    //   const response = await saveBook(bookToSave, token);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
+    try {
+      const { data } = await saveBook({
+        variables: { input: bookToSave }
+      });
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);

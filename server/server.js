@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
-server.applyMiddleware({ app });
+
 
 // URL ENCODED MIDDLEWARE
 // app.use(express.urlencoded({ extended: false }));
@@ -47,10 +47,22 @@ if (process.env.NODE_ENV === 'production') {
 
 // DO WE NEED ROUTES???
 // app.use(routes);
+const startingApolloServer = async (typeDefs, resolvers) =>{
+  await server.start();
+  server.applyMiddleware({app});
+  
+  db.once('open', () => {
+    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+    // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
+  });
+}
+startingApolloServer(typeDefs, resolvers);
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-  // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-  // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
-});
+// db.once('open', () => {
+//   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+//   // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
+//   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+//   // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
+// });
