@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+// ADD useEffect FOR ERROR HANDLING
+import React, { useState, useEffect } from 'react';
+// IMPORT useMutation HOOK
+import { useMutation } from '@apollo/client';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { createUser } from '../utils/API';
+// import { createUser } from '../utils/API';
+// IMPORT LOGIN_USER QUERY
+import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -11,6 +16,18 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+
+  // useMutation ADD_USER HOOK
+  const [addUser, { error }] = useMutation(ADD_USER);
+  
+  // SET UP useEffect HOOK FOR ERROR
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    } else {
+      setShowAlert(false);
+    }
+  }, [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -26,20 +43,15 @@ const SignupForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    // REFACTOR TRY/CATCH TO AWAIT addUser MUTATION
     try {
-      const response = await createUser(userFormData);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      const { data } = await addUser({
+        variables: { ...userFormData }
+      });
+      console.log(data);
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
-      setShowAlert(true);
     }
 
     setUserFormData({

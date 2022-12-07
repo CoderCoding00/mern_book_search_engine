@@ -11,13 +11,11 @@ const { typeDefs, resolvers } = require('./schemas');
 // GIVEN CODE
 const path = require('path');
 const db = require('./config/connection');
-const routes = require('./routes');
+// DO WE NEED RPUTES?
+// const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 // CREATE NEW APOLLO SERVER (PASS IN TYPEDEFS, RESOLVERS, AND CONTEXT for MIDDLWARE)
 const server = new ApolloServer({
@@ -25,6 +23,9 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware
 });
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
 server.applyMiddleware({ app });
@@ -39,10 +40,10 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// sendFile will serve index.html on the route '/'
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
+// *** ??? sendFile will serve index.html on the route '/'
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
 
 // DO WE NEED ROUTES???
 // app.use(routes);
@@ -50,5 +51,6 @@ app.get('*', (req, res) => {
 db.once('open', () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
   // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-  console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
+  console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
 });

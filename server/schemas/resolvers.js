@@ -3,7 +3,7 @@
 // **** Hint ****: Use the functionality in the `user-controller.js` as a guide.
 
 // import the user model
-const { User, Book } = require('../models');
+const { User } = require('../models');
 // import the authentication middleware
 const { signToken } = require('../utils/auth');
 // import the authentication middleware
@@ -18,11 +18,13 @@ const resolvers = {
             // IF THERE IS A USER CONTEXT
             if (context.user) {
                 // FIND THE USER BY THE ID
-                const userData = await User.findOne({ _id: context.user._id })
+                const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
                 // OR IS THE OBJECT EMPTY INSTEAD OF _id?
                 // const userData = await User.findOne({ })
-                    .select('-__v -password')
-                    .populate('books');
+                    // .select('-__v -password');
+                    // *** ASK ABOUT .populate('books');
+                    // .populate('books');
+
                 // RETURN THE USER DATA
                 return userData;
             }
@@ -32,6 +34,15 @@ const resolvers = {
     },
     // DEFINE THE MUTATION
     Mutation: {
+        // MUTATION FOR THE ADD USER
+        addUser: async (parent, args) => {
+            // CREATE THE USER
+            const user = await User.create(args);
+            // SIGN THE TOKEN
+            const token = signToken(user);
+            // RETURN THE TOKEN
+            return { token, user };
+        },
         // MUTATION FOR THE LOGIN
         login: async (parent, { email, password }) => {
             // FIND THE USER BY THE EMAIL
@@ -54,15 +65,6 @@ const resolvers = {
                 // RETURN THE TOKEN
                 return { token, user };
         },
-        // MUTATION FOR THE ADD USER
-        addUser: async (parent, args) => {
-            // CREATE THE USER
-            const user = await User.create(args);
-            // SIGN THE TOKEN
-            const token = signToken(user);
-            // RETURN THE TOKEN
-            return { token, user };
-        },
         // MUTATION FOR THE SAVE BOOK
         saveBook: async (parent, { bookData }, context) => {
             // IF THERE IS A USER CONTEXT
@@ -79,7 +81,7 @@ const resolvers = {
                 // RETURN THE UPDATED USER
                 return updatedUser;
             }
-            throw new AuthenticationError('ERROR: Not saved! Please log in.');
+            throw new AuthenticationError('ERROR: Please log in.');
         },
 
         // MUTATION FOR THE REMOVE BOOK
@@ -91,14 +93,15 @@ const resolvers = {
                     // FIND THE USER BY THE ID
                     { _id: context.user._id },
                     // REMOVE THE BOOK
-                    { $pull: { savedBooks: { bookId: bookId } } },
+                    // { $pull: { savedBooks: { bookId: bookId } } },
+                    { $pull: { savedBooks: { bookId } } },
                     // RETURN THE NEW DATA
                     { new: true }
                 );
                 // RETURN THE UPDATED USER
                 return updatedUser;
             }
-            throw new AuthenticationError('ERROR: Not removed! Please log in.');
+            throw new AuthenticationError('ERROR: Please log in.');
         }
     }
 };
