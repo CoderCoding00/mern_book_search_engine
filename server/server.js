@@ -11,7 +11,7 @@ const { typeDefs, resolvers } = require('./schemas');
 // GIVEN CODE
 const path = require('path');
 const db = require('./config/connection');
-// DO WE NEED RPUTES?
+// NOT USING THESE GIVEN ROUTES
 // const routes = require('./routes');
 
 const app = express();
@@ -24,10 +24,8 @@ const server = new ApolloServer({
   context: authMiddleware
 });
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
 
 // URL ENCODED MIDDLEWARE
@@ -40,17 +38,13 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// *** ??? sendFile will serve index.html on the route '/'
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
-
-// DO WE NEED ROUTES???
+// COMMENT OUT THE ROUTES THAT WERE GIVEN
 // app.use(routes);
 
 // HELP FROM TA - STARTING THE APOLLO SERVER
 const startingApolloServer = async (typeDefs, resolvers) =>{
   await server.start();
+  // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
   server.applyMiddleware({app});
   
   db.once('open', () => {
