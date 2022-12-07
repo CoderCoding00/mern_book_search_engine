@@ -47,6 +47,8 @@ if (process.env.NODE_ENV === 'production') {
 
 // DO WE NEED ROUTES???
 // app.use(routes);
+
+// HELP FROM TA - STARTING THE APOLLO SERVER
 const startingApolloServer = async (typeDefs, resolvers) =>{
   await server.start();
   server.applyMiddleware({app});
