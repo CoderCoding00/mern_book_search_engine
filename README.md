@@ -13,10 +13,7 @@ This is an application using using Google Books API search engine built with a R
 	- [Table of Contents](#table-of-contents)
 	- [User Story](#user-story)
 	- [Animated Functionality](#animated-functionality)
-	- [Terminal Commands To Run The Application](#terminal-commands-to-run-the-application)
-- [`npm run develop`](#npm-run-develop)
-- [`npm test`](#npm-test)
-- [`npm run eject`](#npm-run-eject)
+	- [Terminal Command To Run The Application](#terminal-command-to-run-the-application)
 	- [Deployment](#deployment)
 - [`Heroku Link`](#heroku-link)
 - [`Github Link`](#github-link)
@@ -45,16 +42,11 @@ A user can view their saved books on a separate page, as shown in the following 
 
 ![The Viewing Lernantino's Books page shows the books that the user Lernaninto has saved.](./Assets/21-mern-homework-demo-03.gif)
 
-## Terminal Commands To Run The Application 
+## Terminal Command To Run The Application 
 
-# `npm run develop`
+`npm run develop`
 
 Builds the application. The front end (client side) runs on [http://localhost:3000] in your browser. The back end (server side) runs on [http://localhost:3001/graphql] where you can query the server. 
-
-# `npm test`
-Starts the interactive mode test runner.
-
-# `npm run eject`
 
 ## Deployment
 This application was deployed on Heroku. The link is provided below along with the github repository. 
