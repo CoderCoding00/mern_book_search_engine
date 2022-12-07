@@ -15,8 +15,8 @@ This is an application using using Google Books API search engine built with a R
 	- [Animated Functionality](#animated-functionality)
 	- [Terminal Command To Run The Application](#terminal-command-to-run-the-application)
 	- [Deployment](#deployment)
-- [Heroku Link](#heroku-link)
-- [Github Link](#github-link)
+		- [Heroku Link](#heroku-link)
+		- [Github Link](#github-link)
 
 ## User Story
 
@@ -51,9 +51,9 @@ Builds the application. The front end (client side) runs on [http://localhost:30
 ## Deployment
 This application was deployed on Heroku. The link is provided below along with the github repository. 
 
-# Heroku Link
+### Heroku Link
 
-# Github Link
+### Github Link
 https://github.com/CoderCoding00/mern_book_search_engine
 
 
