@@ -38,7 +38,6 @@ const client = new ApolloClient({
 });
 
 // REFACTOR THE APP FUNCTION TO WRAP THE ENTIRE APP IN THE ApolloProvider
-
 function App() {
   return (
     // WRAP THE ENTIRE APP IN THE ApolloProvider and use "exact" path

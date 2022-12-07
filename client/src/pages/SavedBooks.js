@@ -21,12 +21,12 @@ const SavedBooks = () => {
   // COMMENT OUT GIVEN CONST BELOW
   // const [userData, setUserData] = useState({});
 
-  // ** ADD useQuery HOOK
+  // ADD useQuery HOOK
   const { loading, data } = useQuery(GET_ME);
-  // ** ADD useMutation HOOK
+  // ** ADD useMutation HOOK (SHOULD ERROR BE REMOVED FROM THIS?)
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
-  // ** ADD userData variable
+  // ** data?.me CHECKS IF DATA EXISTS, OTHERWISE RETURN AN EMPTY OBJECT
   const userData = data?.me || {};
 
   // COMMENT OUT GIVEN CODE BELOW
@@ -68,9 +68,14 @@ const SavedBooks = () => {
     }
     // ** MY CODE TO REFACTOR TRY/CATCH BELOW
     try {
+      // ********* DATA IS ASSIGNED TO THE RESPONSE BUT NEVER USED ?????
       const { data } = await removeBook({
         variables: { bookId },
       });
+      // **** SHOLD I CHECK ERROR FOR DATA THIS WAY OR IS IT REDUNDANT?
+      if (!data) {
+        throw new Error('EROOR: Something went wrong!');
+      }
      
       // *** GIVEN CODE BELOW
       // upon success, remove book's id from localStorage

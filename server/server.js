@@ -24,10 +24,6 @@ const server = new ApolloServer({
   context: authMiddleware
 });
 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
-
 // URL ENCODED MIDDLEWARE
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
@@ -38,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// COMMENT OUT THE ROUTES THAT WERE GIVEN
+// *** COMMENT OUT THE ROUTES THAT WERE GIVEN??? 
 // app.use(routes);
 
 // HELP FROM TA - STARTING THE APOLLO SERVER
@@ -51,14 +47,6 @@ const startingApolloServer = async (typeDefs, resolvers) =>{
     app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
     // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
   });
 }
 startingApolloServer(typeDefs, resolvers);
-
-// db.once('open', () => {
-//   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-//   // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-//   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-//   // console.log(`URL to Run: http://localhost:${PORT}${server.graphqlPath}`);
-// });

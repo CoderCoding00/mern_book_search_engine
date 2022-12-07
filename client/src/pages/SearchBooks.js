@@ -6,8 +6,8 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import Auth from '../utils/auth';
-// IS THE GIVEN IMPORT BELOW NEEDED?
-import { saveBook, searchGoogleBooks } from '../utils/API';
+// *****  SHOULD I HAVE saveBook, searchGoogleBooks? OR JUST searchGoogleBooks? REFER TO COMMENT ON LINE 3 ABOVE
+import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 // IMPORT THE useMutation HOOK
@@ -25,7 +25,7 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-  // ADD THE useMutation HOOK
+  // **** ADD THE useMutation HOOK **** (SHOULD ERROR BE REMOVED FROM THIS?)
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
@@ -86,6 +86,7 @@ const SearchBooks = () => {
     //     throw new Error('something went wrong!');
     //   }
     try {
+      // **** DATA ASSIGNED BUT NEVER USED ****
       const { data } = await saveBook({
         variables: { input: bookToSave }
       });
