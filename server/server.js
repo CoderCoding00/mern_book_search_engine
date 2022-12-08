@@ -1,6 +1,9 @@
 // INSTRUCTIONS FROM README
 // * `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
 
+// ????? DEFINE MONOGOOSE (DO I NEED THIS TO DELOPY TO HEROKU?)
+const mongoose = require('mongoose');
+// IMPORT EXPRESS
 const express = require('express');
 // IMPORT THE APOLLO SERVER
 const { ApolloServer } = require('apollo-server-express');
@@ -38,15 +41,31 @@ if (process.env.NODE_ENV === 'production') {
 // app.use(routes);
 
 // HELP FROM TA - STARTING THE APOLLO SERVER
-const startingApolloServer = async (typeDefs, resolvers) =>{
-  await server.start();
-  // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
-  server.applyMiddleware({app});
+// const startingApolloServer = async (typeDefs, resolvers) =>{
+//   await server.start();
+//   // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
+//   server.applyMiddleware({app});
   
-  db.once('open', () => {
-    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-    // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-  });
+
+  // REPLACED THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER 
+  const startingMongoServer = async (typeDefs, resolvers) =>{
+    await server.start();
+    // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
+    server.applyMiddleware({app});
+    // CONNECT TO THE MONGO DB
+  mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost:27017/book-search-app', 
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  );
+  // db.once('open', () => {
+  //   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  //   // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
+  //   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  // });
 }
-startingApolloServer(typeDefs, resolvers);
+// startingApolloServer(typeDefs, resolvers);
+// REPLACE THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER
+startingMongoServer(typeDefs, resolvers);
