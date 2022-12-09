@@ -25,7 +25,7 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-  // **** ADD THE useMutation HOOK **** (SHOULD ERROR BE REMOVED FROM THIS?)
+  // ????? **** ADD THE useMutation HOOK **** (SHOULD ERROR BE REMOVED FROM THIS?)
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
@@ -86,7 +86,7 @@ const SearchBooks = () => {
     //     throw new Error('something went wrong!');
     //   }
     try {
-      // **** DATA ASSIGNED BUT NEVER USED ****
+      // ????? **** DATA ASSIGNED BUT NEVER USED ****
       const { data } = await saveBook({
         variables: { input: bookToSave }
       });
