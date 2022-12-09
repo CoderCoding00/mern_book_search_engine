@@ -25,8 +25,6 @@ const server = new ApolloServer({
   context: authMiddleware
 });
 
-// ***** TRY ADDING MIDDLEWARE HERE INSTEAD OF "HELP FROM TA" SECTION
-server.applyMiddleware({app});
 // URL ENCODED MIDDLEWARE
 // app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
@@ -36,26 +34,15 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-  // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-  // console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-});
 
 // *** COMMENT OUT THE ROUTES THAT WERE GIVEN??? 
 // app.use(routes);
 
-// // HELP FROM TA - STARTING THE APOLLO SERVER
-// const startingApolloServer = async (typeDefs, resolvers) =>{
-//   await server.start();
-//   // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
-//   server.applyMiddleware({app});
-//   db.once('open', () => {
-//     app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-//     // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-//     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-//   });
-// }
+// HELP FROM TA - STARTING THE APOLLO SERVER
+const startingApolloServer = async (typeDefs, resolvers) =>{
+  await server.start();
+  // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
+  server.applyMiddleware({app});
   
 
   // **** REPLACED THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER 
@@ -71,8 +58,12 @@ db.once('open', () => {
   //     useUnifiedTopology: true,
   //   },
   // );
-
-// **** COMMENT OUT THE ApolloServer FROM TA (BRING BACK IF USING TA HELP)
-// startingApolloServer(typeDefs, resolvers);
+  db.once('open', () => {
+    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+    // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+}
+startingApolloServer(typeDefs, resolvers);
 // REPLACE THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER
 // startingMongoServer(typeDefs, resolvers);
