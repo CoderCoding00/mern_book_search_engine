@@ -35,6 +35,11 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// ***** TRY THIS get 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 // *** COMMENT OUT THE ROUTES THAT WERE GIVEN??? 
 // app.use(routes);
 
@@ -61,7 +66,7 @@ const startingApolloServer = async (typeDefs, resolvers) =>{
   db.once('open', () => {
     app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
     // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+    console.log(`Use http://localhost:${PORT}${server.graphqlPath}`);
   });
 }
 startingApolloServer(typeDefs, resolvers);
