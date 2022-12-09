@@ -1,8 +1,6 @@
 // INSTRUCTIONS FROM README
 // * `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
 
-// ????? DEFINE MONOGOOSE (DO I NEED THIS TO DELOPY TO HEROKU?)
-const mongoose = require('mongoose');
 // IMPORT EXPRESS
 const express = require('express');
 // IMPORT THE APOLLO SERVER
