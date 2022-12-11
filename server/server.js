@@ -19,10 +19,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // CREATE NEW APOLLO SERVER (PASS IN TYPEDEFS, RESOLVERS, AND CONTEXT for MIDDLWARE)
+// *** I ADDED introspection to test and see if the endpoint will work
+// https://www.apollographql.com/blog/graphql/security/why-you-should-disable-graphql-introspection-in-production/
+ // introspection: process.env.NODE_ENV !== 'production',
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware
+  context: authMiddleware,
 });
 
 // URL ENCODED MIDDLEWARE
