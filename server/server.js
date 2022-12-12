@@ -56,22 +56,6 @@ const startingApolloServer = async (typeDefs, resolvers) =>{
     // LOG WHERE THE GRAPHQL API IS RUNNING WITH THE APOLLO SERVER (graphqlPath)
     console.log(`Use http://localhost:${PORT}${server.graphqlPath}`);
   });
-}
-  
-  // **** REPLACED THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER 
-  // const startingMongoServer = async (typeDefs, resolvers) =>{
-  //   await server.start();
-  //   // APPLY THE APOLLO SERVER MIDDLEWARE TO THE EXPRESS APP
-  //   server.applyMiddleware({app});
-  //   // CONNECT TO THE MONGO DB
-  // mongoose.connect(
-  //   process.env.MONGODB_URI || 'mongodb://localhost:27017/book-search-app', 
-  //   {
-  //     useNewUrlParser: true,
-  //     useUnifiedTopology: true,
-  //   },
-  // );
+};
 
 startingApolloServer(typeDefs, resolvers);
-// REPLACE THE ABOVE APOLLO SERVER CODE WITH MONGO SERVER
-// startingMongoServer(typeDefs, resolvers);
