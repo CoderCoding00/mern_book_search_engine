@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
-
+  
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
@@ -39,6 +39,15 @@ const AppNavbar = () => {
         </Container>
       </Navbar>
       {/* set modal data up */}
+      {/* <Modal animation={false}>
+    <Modal.Header closeButton>
+        <Modal.Title>Title</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        Content
+    </Modal.Body>
+</Modal> */}
+
       <Modal
         size='lg'
         show={showModal}

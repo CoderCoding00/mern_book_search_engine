@@ -23,11 +23,11 @@ const SavedBooks = () => {
 
   // ADD useQuery HOOK
   const { loading, data } = useQuery(GET_ME);
+  // ** data?.me CHECKS IF DATA EXISTS, OTHERWISE RETURN AN EMPTY OBJECT
+  const userData = data?.me || {};
   // ** ADD useMutation HOOK (SHOULD ERROR BE REMOVED FROM THIS?)
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
 
-  // ** data?.me CHECKS IF DATA EXISTS, OTHERWISE RETURN AN EMPTY OBJECT
-  const userData = data?.me || {};
 
   // COMMENT OUT GIVEN CODE BELOW
   // use this to determine if `useEffect()` hook needs to run again
@@ -72,18 +72,20 @@ const SavedBooks = () => {
       const { data } = await removeBook({
         variables: { bookId },
       });
-      // **** SHOLD I CHECK ERROR FOR DATA THIS WAY OR IS IT REDUNDANT?
-      if (!data) {
-        throw new Error('EROOR: Something went wrong!');
+      if(!data) {
+        throw new Error('Something went wrong!');
       }
-     
-      // *** GIVEN CODE BELOW
+       // *** GIVEN CODE BELOW
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
       console.error(err);
     }
   };
+      // **** SHOLD I CHECK ERROR FOR DATA THIS WAY OR IS IT REDUNDANT?
+      // if (!data) {
+      //   throw new Error('EROOR: Something went wrong!');
+      // }
 
   // if data isn't here yet, say so (change to "loading")
   if (loading) {
@@ -121,6 +123,7 @@ const SavedBooks = () => {
           })}
         </CardColumns>
       </Container>
+      {error && <div>Something went wrong...</div>}
     </>
   );
 };

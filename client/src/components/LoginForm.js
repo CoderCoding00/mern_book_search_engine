@@ -53,8 +53,9 @@ const LoginForm = () => {
         variables: { ...userFormData }
       });
       Auth.login(data.login.token);
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
+      setShowAlert(true);
     }
     // GIVEN CODE BELOW REPLACED BY ABOVE
     // try {

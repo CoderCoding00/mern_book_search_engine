@@ -38,6 +38,11 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+// *****  ADDED LINES 42-44 FROM THE SOLVED ACTIVITY 26 IN STATE
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
+// });
+
 // *** COMMENT OUT THE ROUTES THAT WERE GIVEN??? 
 // app.use(routes);
 

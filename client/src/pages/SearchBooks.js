@@ -91,6 +91,10 @@ const SearchBooks = () => {
         variables: { input: bookToSave }
       });
 
+      if(!data) {
+        throw new Error('Something went wrong!');
+      }
+
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
@@ -158,6 +162,7 @@ const SearchBooks = () => {
           })}
         </CardColumns>
       </Container>
+    {error && <div>Something went wrong...</div>}
     </>
   );
 };
