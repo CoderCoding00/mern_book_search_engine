@@ -14,7 +14,8 @@ module.exports = {
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
   // function for our authenticated routes
-  authMiddleware: function (req) {
+  // ** I PUT CURLY BRACES AROUND req.
+  authMiddleware: function ({ req })  {
     // allows token to be sent via  req.query or headers
     // let token = req.query.token || req.headers.authorization;
 
