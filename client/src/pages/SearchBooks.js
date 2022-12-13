@@ -88,7 +88,8 @@ const SearchBooks = () => {
     try {
       // ????? **** DATA ASSIGNED BUT NEVER USED ****
       const { data } = await saveBook({
-        variables: { input: bookToSave }
+        // **** changed to bookData instead of input
+        variables: { bookData: {...bookToSave} }
       });
 
       if(!data) {

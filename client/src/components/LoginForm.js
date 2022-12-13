@@ -20,7 +20,8 @@ const LoginForm = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  // ADD useMutation HOOK
+  // **** ADD useMutation HOOK
+  // OR IS THIS 'login' from the 'userroutes.js' file?
   const [loginUser, { error }] = useMutation(LOGIN_USER);
 
   // useEffect HOOK FOR ERROR
@@ -47,7 +48,7 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
-    // REPLACE TRY/CATCH BLOCK FOR loginUser MUTATION 
+    //  ***'login' OR 'loginUser' REPLACE TRY/CATCH BLOCK FOR loginUser MUTATION 
     try{
       const { data } = await loginUser({
         variables: { ...userFormData }

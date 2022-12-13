@@ -72,9 +72,9 @@ const SavedBooks = () => {
       const { data } = await removeBook({
         variables: { bookId },
       });
-      if(!data) {
-        throw new Error('Something went wrong!');
-      }
+      // if(!data) {
+      //   throw new Error('Something went wrong!');
+      // }
        // *** GIVEN CODE BELOW
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
@@ -101,12 +101,14 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks.length
+          {/* ADDED ? after savedBooks */}
+          {userData.savedBooks?.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks.map((book) => {
+           {/* ADDED ? after savedBooks */}
+          {userData.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
@@ -123,7 +125,7 @@ const SavedBooks = () => {
           })}
         </CardColumns>
       </Container>
-      {error && <div>Something went wrong...</div>}
+      {/* {error && <div>Something went wrong...</div>} */}
     </>
   );
 };

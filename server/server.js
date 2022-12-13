@@ -39,9 +39,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // *****  ADDED LINES 42-44 FROM THE SOLVED ACTIVITY 26 IN STATE
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/'));
+});
 
 // *** COMMENT OUT THE ROUTES THAT WERE GIVEN??? 
 // app.use(routes);
