@@ -1,68 +1,45 @@
+# MERN: Book Search Engine
+
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+
+## Project Description
+
+This is an application using using Google Books API search engine built with a RESTful API, and refactored to be a GraphQL API built with Apollo Server. The app was built using the MERN stack with a React front end, MongoDB database, and Node.js/Express.js server and API. Users can save book searches to the back end. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [MERN: Book Search Engine](#mern-book-search-engine)
+  - [Project Description](#project-description)
+  - [Table of Contents](#table-of-contents)
+  - [User Story](#user-story)
+  - [Terminal Command To Run The Application](#terminal-command-to-run-the-application)
+  - [Deployment](#deployment)
+    - [Heroku Link](#heroku-link)
+    - [Github Link](#github-link)
 
-### `yarn start`
+## User Story
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```md
+A user can search for new books to read
+and keep a list of books to purchase. Users 
+can search books, save books, and delete books
+from their book list.
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Terminal Command To Run The Application 
 
-### `yarn test`
+`npm run develop`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Builds the application. The front end (client side) runs on [http://localhost:3000] in your browser. The back end (server side) runs on [http://localhost:3001/graphql] where you can query the server. 
 
-### `yarn build`
+## Deployment
+This application was deployed on Heroku. The link is provided below along with the github repository. 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Heroku Link
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Github Link
+https://github.com/CoderCoding00/mern_book_search_engine
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

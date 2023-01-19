@@ -14,13 +14,10 @@ import {
   Button,
 } from "react-bootstrap";
 
-// IMPORT useMutation and useQuery HOOKS
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { removeBookId } from "../utils/localStorage";
-// IMPORT GET_ME QUERY
 import { GET_ME } from "../utils/queries";
-// IMPORT REMOVE_BOOK QUERY
 import { REMOVE_BOOK } from "../utils/mutations";
 
 const SavedBooks = () => {

@@ -1,26 +1,18 @@
-// INSTRUCTIONS FROM THE README
-// * `LoginForm.js`: Replace the `loginUser()` functionality imported from the `API` file
-// with the `LOGIN_USER` mutation functionality.
-
-// see SignupForm.js for comments
-// IMPORT useEFFECT HOOK
+// IMPORT use State and useEFFECT HOOK
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-
-// import { loginUser } from '../utils/API';
-import Auth from "../utils/auth";
-
 // IMPORT useMutation HOOK
 import { useMutation } from "@apollo/client";
 // IMPORT LOGIN_USER QUERY
 import { LOGIN_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: "", password: "" });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  // **** ADD useMutation HOOK FOR LOGIN_USER
+  // ADD useMutation HOOK FOR LOGIN_USER
   const [loginUser, { error }] = useMutation(LOGIN_USER);
 
   // useEffect HOOK FOR ERROR
@@ -47,16 +39,16 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
-    //  ***'login' OR 'loginUser' REPLACE TRY/CATCH BLOCK FOR loginUser MUTATION
+    // use try/catch instead of promises to handle errors
     try {
       const { data } = await loginUser({
         variables: { ...userFormData },
       });
       console.log(data);
       Auth.login(data.login.token);
-    } catch (err) {
-      console.error(err);
-      // setShowAlert(true);
+      // Use catch(e) not catch(err) b/c (e) is the error object, (err)is the error message
+    } catch (e) {
+      console.error(e);
     }
 
     // Clear form values
@@ -114,8 +106,6 @@ const LoginForm = () => {
           Submit
         </Button>
       </Form>
-      {/* IF ERROR THEN SHOW LOGIN FAILED */}
-      {/* {error && <div>Login failed</div>} */}
     </>
   );
 };
