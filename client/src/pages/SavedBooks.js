@@ -4,7 +4,6 @@
 // and save it to a variable named `userData`.
 // * Use the `useMutation()` Hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from `API` file.
 // (Make sure you keep the `removeBookId()` function in place!)
-
 import React from "react";
 import {
   Jumbotron,
@@ -15,38 +14,36 @@ import {
 } from "react-bootstrap";
 
 import { useQuery, useMutation } from "@apollo/client";
-import Auth from "../utils/auth";
-import { removeBookId } from "../utils/localStorage";
+// Import GET_ME query from the queries.js file
 import { GET_ME } from "../utils/queries";
 import { REMOVE_BOOK } from "../utils/mutations";
+import { removeBookId } from "../utils/localStorage";
+
+import Auth from "../utils/auth";
 
 const SavedBooks = () => {
-  // ADD useQuery HOOK
+  // useQuery HOOK to execute the GET_ME query on load
   const { loading, data } = useQuery(GET_ME);
-  // ** ADD useMutation HOOK (SHOULD ERROR BE REMOVED FROM THIS?)
+  // useMutation HOOK (SHOULD ERROR BE REMOVED FROM THIS?)
   const [removeBook, { error }] = useMutation(REMOVE_BOOK);
-  // ** data?.me CHECKS IF DATA EXISTS, OTHERWISE RETURN AN EMPTY OBJECT
+  // data?.me CHECKS IF DATA EXISTS, OTHERWISE RETURN AN EMPTY OBJECT
   const userData = data?.me || {};
 
-  // **GIVE CODE BELOW
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  // function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
+    // create token variable to hold the token value from localStorage, null if there is no token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    // if token exists, execute the removeBook mutation and pass in the bookId and token
     if (!token) {
       return false;
     }
-    // ** MY CODE TO REFACTOR TRY/CATCH BELOW
+    // use try/catch to handle errors from the removeBook mutation
     try {
-      // ********* DATA IS ASSIGNED TO THE RESPONSE BUT NEVER USED ?????
       const { data } = await removeBook({
         variables: { bookId },
       });
+      // console.log(data) to see what the data looks like
       console.log(data);
-      // if(!data) {
-      //   throw new Error('Something went wrong!');
-      // }
-      // *** GIVEN CODE BELOW
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
@@ -74,7 +71,6 @@ const SavedBooks = () => {
             : "You have no saved books!"}
         </h2>
         <CardColumns>
-          {/* ADDED ? after savedBooks */}
           {userData.savedBooks?.map((book) => {
             return (
               <Card key={book.bookId} border="dark">
