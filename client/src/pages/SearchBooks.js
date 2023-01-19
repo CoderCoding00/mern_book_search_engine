@@ -1,8 +1,3 @@
-// INSTRUCTIONS FROM README
-// * Use the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function
-// instead of the `saveBook()` function imported from the `API` file.
-// * Make sure you keep the logic for saving the book's ID to state in the `try...catch` block!
-
 import React, { useState, useEffect } from "react";
 import {
   Jumbotron,
@@ -13,15 +8,14 @@ import {
   Card,
   CardColumns,
 } from "react-bootstrap";
-import Auth from "../utils/auth";
-// *****  SHOULD I HAVE saveBook, searchGoogleBooks? OR JUST searchGoogleBooks? REFER TO COMMENT ON LINE 3 ABOVE
-// import { searchGoogleBooks } from '../utils/API';
-import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
 
 // IMPORT THE useMutation HOOK
 import { useMutation } from "@apollo/client";
 // IMPORT THE SAVE_BOOK QUERY
 import { SAVE_BOOK } from "../utils/mutations";
+import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
+
+import Auth from "../utils/auth";
 
 const SearchBooks = () => {
   // create state for holding returned google api data
@@ -32,12 +26,13 @@ const SearchBooks = () => {
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-  // ????? **** ADD THE useMutation HOOK **** (SHOULD ERROR BE REMOVED FROM THIS?)
+  // useMutation HOOK to execute the SAVE_BOOK mutation in the handleSaveBook function
   const [saveBook, { error }] = useMutation(SAVE_BOOK);
+  // console.log(error) to see if there is an error with the mutation
   console.log(error);
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
+  // Refer to  https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
@@ -49,20 +44,21 @@ const SearchBooks = () => {
     if (!searchInput) {
       return false;
     }
-
-    // try {
-    //   const response = await searchGoogleBooks(searchInput);
+    // use try/catc to handle errors
     try {
+      // await the repsonse of the fetch request to the Google Books API
       const response = await fetch(
         `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
       );
-
+      // if response is not ok, throw an error
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
 
+      // destructure the json from the response
       const { items } = await response.json();
 
+      // map over the items array to create a new array of book data objects
       const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
@@ -73,8 +69,8 @@ const SearchBooks = () => {
 
       setSearchedBooks(bookData);
       setSearchInput("");
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -89,10 +85,9 @@ const SearchBooks = () => {
     if (!token) {
       return false;
     }
-
-    // **** Try to save the book to the database
+    // use try/catch to handle errors
     try {
-      // const { savedBookIds } = await saveBook({
+      // execute the saveBook mutation and pass in variable
       const { data } = await saveBook({
         variables: { bookData: { ...bookToSave } },
       });
@@ -102,17 +97,6 @@ const SearchBooks = () => {
       console.error(err);
     }
   };
-  // **** COMMENTED OUT 112-121
-  // if(!data) {
-  //   throw new Error('Something went wrong!');
-  // }
-
-  // if book successfully saves to user's account, save book id to state
-  //     setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
   return (
     <>
       <Jumbotron fluid className="text-light bg-dark">
@@ -180,7 +164,6 @@ const SearchBooks = () => {
           })}
         </CardColumns>
       </Container>
-      {/* {error && <div>Something went wrong...</div>} */}
     </>
   );
 };
