@@ -1,9 +1,8 @@
-// INSTRUCTIONS FROM README
-// * * `mutations.js`: Create the following mutations:
-// LOGIN_USER, ADD_USER, SAVE_BOOK, and REMOVE_BOOK mutations
-
 // IMPORT THE gql METHOD FROM APOLLO SERVER
 import { gql } from "@apollo/client";
+
+// Create the following mutations:
+// LOGIN_USER, ADD_USER, SAVE_BOOK, and REMOVE_BOOK mutations
 
 // EXPORT CONST LOGIN_USER QUERY
 export const LOGIN_USER = gql`
