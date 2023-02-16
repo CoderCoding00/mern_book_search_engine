@@ -1,6 +1,7 @@
 # MERN: Book Search Engine
 
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+![license badge](https://img.shields.io/badge/license-MIT-brightgreen)
 
 ## Project Description
 
