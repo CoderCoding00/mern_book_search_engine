@@ -1,6 +1,10 @@
 # MERN: Book Search Engine
 
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+## License
+
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC) 
+<br>
+![license badge](https://img.shields.io/badge/license-MIT-brightgreen)
 
 ## Project Description
 
@@ -40,6 +44,6 @@ This application was deployed on Heroku. The link is provided below along with t
 ### Heroku Link
 
 ### Github Link
-https://github.com/CoderCoding00/mern_book_search_engine
+<p>https://github.com/CoderCoding00/mern_book_search_engine</p>
 
 
