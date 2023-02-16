@@ -40,6 +40,6 @@ This application was deployed on Heroku. The link is provided below along with t
 ### Heroku Link
 
 ### Github Link
-https://github.com/CoderCoding00/mern_book_search_engine
+<p>https://github.com/CoderCoding00/mern_book_search_engine</p>
 
 
